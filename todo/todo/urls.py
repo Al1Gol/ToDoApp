@@ -15,12 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-
-from usersapp.views import *
 from rest_framework import routers
+
+from projectapp.views import ProjectViewSet, TodoViewSet
+from usersapp.views import UsersViewSet
+
 
 router = routers.SimpleRouter()
 router.register('users', UsersViewSet, basename='users')
+router.register('projects', ProjectViewSet, basename = 'projects')
+router.register('todo', TodoViewSet, basename = 'projects')
 
 urlpatterns = [
     path('api/', include(router.urls)),
