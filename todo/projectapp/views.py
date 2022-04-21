@@ -11,3 +11,4 @@ class ProjectViewSet(ReadOnlyModelViewSet):
 class TodoViewSet(ReadOnlyModelViewSet):
     queryset = ToDo.objects.all()
     serializer_class = ToDoSerializer
+
