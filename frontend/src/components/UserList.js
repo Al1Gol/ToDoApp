@@ -1,3 +1,6 @@
+import React from 'react'
+
+
 const UserItem = ({user}) => {
     return (
         <tr>
@@ -9,24 +12,24 @@ const UserItem = ({user}) => {
     )
 }
 
-const UsersList = ({users}) => {
+const UserList = ({users}) => {
     return (
         <table>
         <th>
-            username
+            Username
         </th>
         <th>
-            first_name
+            First_name
         </th>
         <th>
-            last_name
+            Last_name
         </th>
         <th>
-            email
+            Email
         </th>
         {users.map((user) => <UserItem user={user} />)}
         </table>
     )
 }
 
-export default UsersList
+export default UserList
