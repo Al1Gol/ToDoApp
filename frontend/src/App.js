@@ -1,16 +1,30 @@
 import React from 'react'
+import axios from 'axios'
+import {BrowserRouter, Route, Routes, Navigate, useLocation} from 'react-router-dom'
+
 import UserList from './components/UserList.js'
 import ProjectList from './components/ProjectList.js'
+import UserProjectsList from './components/UserProjectsList.js'
 import TodoList from './components/TodoList.js'
 import Menu from './components/Header.js'
 import Footer from './components/Footer.js'
-import axios from 'axios'
+
+
+const NotFound = () => {
+    var location = useLocation()
+
+    return (
+        <div>
+            Page "{location.pathname}" not found
+        </div>
+    )
+}
 
 class App extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-                'users':  [],
+                'users': [],
                 'projects':[],
                 'todoes': []
         }
@@ -51,10 +65,17 @@ class App extends React.Component {
     render(){
         return (
             <div>
-                <Menu/>
-                <UserList users={this.state.users}/>
-                <ProjectList projects={this.state.projects}/>
-                <TodoList todoes={this.state.todoes}/>
+                <BrowserRouter>
+                    <Menu/>
+                    <Routes>
+                        <Route exact path='/' element = {<ProjectList projects={this.state.projects} />} />
+                        <Route exact path='/users/' element = {<UserList users={this.state.users} />} />
+                        <Route exact path='/todo/' element = {<TodoList todoes={this.state.todoes} />} />
+                        <Route exact path='/projects/' element = {<Navigate to='/' />} />
+                        <Route exact path='/user/:id/' element = {<UserProjectsList projects={this.state.projects} />} />
+                        <Route path='*' element = {<NotFound />} />
+                    </Routes>
+                </BrowserRouter>
                 <Footer/>
             </div>
         )
