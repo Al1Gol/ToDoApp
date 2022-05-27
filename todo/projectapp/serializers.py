@@ -17,5 +17,5 @@ class ToDoSerializer(ModelSerializer):
     #project = StringRelatedField()
     class Meta:
         model = ToDo
-        fields = ['project','text_todo', 'creator', 'time_create', 'time_update']
+        fields = ['id', 'project','text_todo', 'creator', 'time_create', 'time_update']
 

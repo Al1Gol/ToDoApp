@@ -1,17 +1,18 @@
 import React from 'react'
 
 
-const TodoItem = ({todo}) => {
+const TodoItem = ({todo, user, project, deleteToDo}) => {
     return (
         <tr>
-            <td>{todo.project}</td>
+            <td>{project.find(a => a.id == todo.project).name}</td>
             <td>{todo.text_todo}</td>
-            <td>{todo.creator}</td>
+            <td>{user.find(a => a.id == todo.creator).username}</td>
+            <td><button onClick={() => deleteToDo(todo.id)}>Delete</button></td>
         </tr>
     )
 }
 
-const TodoList = ({todoes}) => {
+const TodoList = ({todoes, user, project, deleteToDo}) => {
     return (
         <table>
         <th>
@@ -23,7 +24,7 @@ const TodoList = ({todoes}) => {
         <th>
             Creator
         </th>
-        {todoes.map((todo) => <TodoItem todo={todo} />)}
+        {todoes.map((todo) => <TodoItem todo={todo} user={user} project={project} deleteToDo={deleteToDo} />)}
         </table>
     )
 }
