@@ -1,31 +1,40 @@
 import React from 'react'
 
-
 const TodoItem = ({todo, user, project, deleteToDo}) => {
     return (
-        <tr>
-            <td>{project.find(a => a.id == todo.project).name}</td>
-            <td>{todo.text_todo}</td>
-            <td>{user.find(a => a.id == todo.creator).username}</td>
-            <td><button onClick={() => deleteToDo(todo.id)}>Delete</button></td>
-        </tr>
+        <tbody>
+            <tr>
+                <td className={todo.is_active ? "not_complete" : "complete" }>{project.find(obj => obj.id === todo.project).name}</td>
+                <td className={todo.is_active ? "not_complete" : "complete" }>{todo.text_todo}</td>
+                <td className={todo.is_active ? "not_complete" : "complete" }>{user.find(obj => obj.id === todo.creator).username}</td>
+                <td className={todo.is_active ? "not_complete" : "complete" }><button onClick={() => deleteToDo(todo.id)}>Complete</button></td>
+            </tr>
+        </tbody>
     )
 }
 
-const TodoList = ({todoes, user, project, deleteToDo}) => {
+const TodoList = ({todoes, users, project, filter_word, deleteToDo, handleChange, handleFilterSubmit}) => {
     return (
-        <table>
-        <th>
-            Project
-        </th>
-        <th>
-            Text Todo
-        </th>
-        <th>
-            Creator
-        </th>
-        {todoes.map((todo) => <TodoItem todo={todo} user={user} project={project} deleteToDo={deleteToDo} />)}
-        </table>
+        <div>
+            <form onSubmit={(event) => handleFilterSubmit}>
+                <input type="text" name="filter_word" placeholder="filter" value={filter_word} onChange={(event) => handleChange}/>
+                <input type="submit" value="Принять"/>
+            </form>
+            <table>
+                <thead>
+                    <th>
+                        Project
+                    </th>
+                    <th>
+                        Text Todo
+                    </th>
+                    <th>
+                        Creator
+                    </th>
+                </thead>
+                {todoes.map((todo) => <TodoItem todo={todo} user={users} project={project} deleteToDo={deleteToDo}/>)} 
+            </table>
+        </div>
     )
 }
 

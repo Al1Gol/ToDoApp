@@ -35,7 +35,7 @@ class TodoViewSet(ModelViewSet):
         name = self.request.query_params.get('name', None)
         if name:
             #Фильтрация производится по самому имени проекта, а не по ключу.
-            return ToDo.objects.all().filter(project__name=name).filter(is_active=True)
+            return ToDo.objects.all().filter(project__name__contains=name)
         else:
-            return ToDo.objects.all().filter(is_active=True)
+            return ToDo.objects.all()
 

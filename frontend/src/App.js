@@ -1,4 +1,5 @@
 import React from 'react'
+import './App.css'
 import axios from 'axios'
 import {BrowserRouter, Route, Routes, Navigate, useLocation, Link} from 'react-router-dom'
 
@@ -30,7 +31,8 @@ class App extends React.Component {
                 'users': [],
                 'projects':[],
                 'todoes': [],
-                'token': ''
+                'token': '',
+                'filter_word': 'Базо'
         }
     }
 
@@ -63,6 +65,18 @@ class App extends React.Component {
     isAuth() {
         return !!this.state.token
     }
+
+    handleChange(event){
+        this.setState({
+            [event.target.name]: event.target.value
+        })
+    }
+
+    handleFilterSubmit(event){
+        this.getData()
+    }
+
+       
 
     getHeadears(){
         if (this.isAuth()){
@@ -104,22 +118,41 @@ class App extends React.Component {
                 })
                 console.log(error)
             })
-
-        axios.get('http://127.0.0.1:8000/api/todo/', {headers})
-            .then(response => {
-                let todoes = response.data.results
-                this.setState({
-                    'todoes': todoes
-                })
-                this.state.todoes = todoes
-            })
-            .catch(error => {
-                this.setState({
-                    'todoes': []
-                })
-                console.log(error)
-            })
-    }
+            
+            if (this.state.filter_word){
+                axios.get(`http://127.0.0.1:8000/api/todo/?name=${this.state.filter_word}`, {headers})
+                    .then(response => {
+                        let todoes = response.data.results
+                        console.log(todoes)
+                        this.setState({
+                            'todoes': todoes
+                        })
+                        this.state.todoes = todoes
+                    })
+                    .catch(error => {
+                        this.setState({
+                            'todoes': []
+                        })
+                        console.log(error)
+                    })
+                }
+            else {
+                axios.get('http://127.0.0.1:8000/api/todo/', {headers})
+                    .then(response => {
+                        const todoes = response.data.results
+                        this.setState({
+                            'todoes': todoes
+                        })
+                        this.state.todoes = todoes
+                    })
+                    .catch(error => {
+                        this.setState({
+                            'todoes': []
+                        })
+                        console.log(error)
+                    })
+                }
+            }
 
     
     createTodo(project, text_todo, creator){
@@ -143,7 +176,6 @@ class App extends React.Component {
 
         axios.post('http://127.0.0.1:8000/api/projects/', {'name': name, 'repo': repo, 'workers': workers}, {headers})
         .then(response => {
-            console.log('sdf', name, repo, workers)
             this.getData()
         })
         .catch(error => {
@@ -162,8 +194,8 @@ class App extends React.Component {
         .then(response => {
             let todoes = response.data.results
             this.setState({
-                'todoes': this.state.todoes.filter((todo) => todo.id != id)
-            })
+                'todoes': this.state.todoes
+            }, this.getData())
         })
         .catch(error => {
             this.setState({
@@ -179,9 +211,10 @@ class App extends React.Component {
         axios.delete(`http://127.0.0.1:8000/api/projects/${id}`, {headers})
         .then(response => {
             let projects = response.data.results
+            console.log(projects)
             this.setState({
-                'projects': this.state.projects.filter((project) => project.id != id)
-            })
+                'projects': this.state.projects.filter((project) => project.id !== id)
+            }, this.getData())
         })
         .catch(error => {
             this.setState({
@@ -203,7 +236,7 @@ class App extends React.Component {
                     <Routes>
                         <Route exact path='/' element = {<ProjectList projects={this.state.projects} users={this.state.users} deleteProject={(id) => this.deleteProject(id)}/>} />
                         <Route exact path='/users/' element = {<UserList users={this.state.users} />} />
-                        <Route exact path='/todo/' element = {<TodoList todoes={this.state.todoes} user={this.state.users} project={this.state.projects} deleteToDo={(id) => this.deleteToDo(id)}/>} />
+                        <Route exact path='/todo/' element = {<TodoList users={this.state.users} project={this.state.projects} todoes={this.state.todoes} filter_word={this.state.filter_word} deleteToDo={(id) => this.deleteToDo(id)} handleChange={(event) => this.handleChange(event)} handleFilterSubmit={(event) => this.handleFilterSubmit(event)}/>} />
                         <Route exact path='/todo/create/' element = {<CreateTodoForm users={this.state.users} projects={this.state.projects} createTodo={(project, text_todo, creator) => this.createTodo(project, text_todo, creator)}/>} />
                         <Route exact path='/login/' element = {<LoginForm obtainAuthToken={(login, password) => this.obtainAuthToken(login, password)}/>} />
                         <Route exact path='/projects/' element = {<Navigate to='/' />} />
