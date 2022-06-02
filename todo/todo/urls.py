@@ -33,7 +33,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('api-auth-token/', views.obtain_auth_token),
-    path('api-auth-token/', views.obtain_auth_token),
-    path('api-jwt-token/', TokenObtainPairView.as_view()),
-    path('api-jwt-token-refresh/', TokenRefreshView.as_view()),
 ]
