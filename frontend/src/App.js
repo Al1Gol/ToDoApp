@@ -74,14 +74,7 @@ class App extends React.Component {
         }, () => {this.getData()})
 
     }
-
-    handleFilterSubmit(event){
-        console.log(this.state.filter_word)
-        this.getData()
-    }
-
-       
-
+      
     getHeadears(){
         if (this.isAuth()){
             return {
@@ -231,8 +224,7 @@ class App extends React.Component {
         return (
             <div>
                 <BrowserRouter>
-                    <Menu isAuth={this.isAuth()} logOut={() => this.logOut()}/>
-                    {window.location.pathname === '/todo/' ? <input type="text" name="filter_word" placeholder="filtering by project name" value={this.state.filter_word} onChange={(event) => this.handleChange(event)}/> : ''}
+                    <Menu isAuth={this.isAuth()} logOut={() => this.logOut()} />
                     <Routes>
                         <Route exact path='/' element = {<ProjectList projects={this.state.projects} users={this.state.users} deleteProject={(id) => this.deleteProject(id)}/>} />
                         <Route exact path='/users/' element = {<UserList users={this.state.users} />} />

@@ -13,9 +13,10 @@ const TodoItem = ({todo, user, project, deleteToDo}) => {
     )
 }
 
-const TodoList = ({todoes, users, project, filter_word, deleteToDo, handleChange, handleFilterSubmit}) => {
+const TodoList = ({todoes, users, project, filter_word, deleteToDo, handleChange}) => {
     return (
         <div>
+            <input type="text" name="filter_word" placeholder="Filtering by project name" value={filter_word} onChange={(event) => handleChange(event)}/>
             <table>
                 <thead>
                     <th>
