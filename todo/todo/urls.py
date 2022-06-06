@@ -5,6 +5,8 @@ from drf_yasg.views import get_schema_view
 from drf_yasg.openapi import Info, Contact, License
 from rest_framework.authtoken import views
 from rest_framework.permissions import AllowAny
+from graphene_django.views import GraphQLView
+from django.views.decorators.csrf import csrf_exempt
 
 from projectapp.views import ProjectViewSet, TodoViewSet
 from usersapp.views import UsersViewSet
@@ -29,6 +31,7 @@ router.register('todo', TodoViewSet, basename = 'todo')
 urlpatterns = [
     path('api/', include(router.urls)),
     path('admin/', admin.site.urls),
+    path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True))),
     path('api-auth/', include('rest_framework.urls')),
     path('api-auth-token/', views.obtain_auth_token),
     path('swagger/', schema_view.with_ui()),

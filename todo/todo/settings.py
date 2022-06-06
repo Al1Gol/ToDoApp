@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'graphene_django',
     'rest_framework.authtoken',
     'drf_yasg',
     'corsheaders',
@@ -57,6 +58,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+GRAPHENE = {
+    'SCHEMA': 'projectapp.schema.schema'
+}
 
 CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:8000',
