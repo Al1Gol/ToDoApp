@@ -60,9 +60,11 @@ class App extends React.Component {
         this.setState({
             'token': ''
         }, this.getData)
+        return
     }
 
     isAuth() {
+        console.log('test auth')
         return !!this.state.token
     }
 
@@ -229,10 +231,7 @@ class App extends React.Component {
         return (
             <div>
                 <BrowserRouter>
-                    <Menu/>
-                    <li>
-                        { this.isAuth() ? <button onClick={()=>this.logOut()}>Logout</button> : <Link to='/login'>Login</Link> }
-                    </li>
+                    <Menu isAuth={this.isAuth()} logOut={() => this.logOut()}/>
                     {window.location.pathname === '/todo/' ? <input type="text" name="filter_word" placeholder="filtering by project name" value={this.state.filter_word} onChange={(event) => this.handleChange(event)}/> : ''}
                     <Routes>
                         <Route exact path='/' element = {<ProjectList projects={this.state.projects} users={this.state.users} deleteProject={(id) => this.deleteProject(id)}/>} />
