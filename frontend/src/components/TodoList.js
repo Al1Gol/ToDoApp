@@ -16,10 +16,6 @@ const TodoItem = ({todo, user, project, deleteToDo}) => {
 const TodoList = ({todoes, users, project, filter_word, deleteToDo, handleChange, handleFilterSubmit}) => {
     return (
         <div>
-            <form onSubmit={(event) => handleFilterSubmit}>
-                <input type="text" name="filter_word" placeholder="filter" value={filter_word} onChange={(event) => handleChange}/>
-                <input type="submit" value="Принять"/>
-            </form>
             <table>
                 <thead>
                     <th>

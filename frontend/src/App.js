@@ -32,7 +32,7 @@ class App extends React.Component {
                 'projects':[],
                 'todoes': [],
                 'token': '',
-                'filter_word': 'Базо'
+                'filter_word': ''
         }
     }
 
@@ -69,10 +69,12 @@ class App extends React.Component {
     handleChange(event){
         this.setState({
             [event.target.name]: event.target.value
-        })
+        }, () => {this.getData()})
+
     }
 
     handleFilterSubmit(event){
+        console.log(this.state.filter_word)
         this.getData()
     }
 
@@ -123,7 +125,6 @@ class App extends React.Component {
                 axios.get(`http://127.0.0.1:8000/api/todo/?name=${this.state.filter_word}`, {headers})
                     .then(response => {
                         let todoes = response.data.results
-                        console.log(todoes)
                         this.setState({
                             'todoes': todoes
                         })
@@ -211,7 +212,6 @@ class App extends React.Component {
         axios.delete(`http://127.0.0.1:8000/api/projects/${id}`, {headers})
         .then(response => {
             let projects = response.data.results
-            console.log(projects)
             this.setState({
                 'projects': this.state.projects.filter((project) => project.id !== id)
             }, this.getData())
@@ -233,10 +233,11 @@ class App extends React.Component {
                     <li>
                         { this.isAuth() ? <button onClick={()=>this.logOut()}>Logout</button> : <Link to='/login'>Login</Link> }
                     </li>
+                    {window.location.pathname === '/todo/' ? <input type="text" name="filter_word" placeholder="filtering by project name" value={this.state.filter_word} onChange={(event) => this.handleChange(event)}/> : ''}
                     <Routes>
                         <Route exact path='/' element = {<ProjectList projects={this.state.projects} users={this.state.users} deleteProject={(id) => this.deleteProject(id)}/>} />
                         <Route exact path='/users/' element = {<UserList users={this.state.users} />} />
-                        <Route exact path='/todo/' element = {<TodoList users={this.state.users} project={this.state.projects} todoes={this.state.todoes} filter_word={this.state.filter_word} deleteToDo={(id) => this.deleteToDo(id)} handleChange={(event) => this.handleChange(event)} handleFilterSubmit={(event) => this.handleFilterSubmit(event)}/>} />
+                        <Route exact path='/todo/' element = {<TodoList users={this.state.users} project={this.state.projects} todoes={this.state.todoes} filter_word={this.state.filter_word} deleteToDo={(id) => this.deleteToDo(id)} handleChange={(event) => this.handleChange(event)}/>} />
                         <Route exact path='/todo/create/' element = {<CreateTodoForm users={this.state.users} projects={this.state.projects} createTodo={(project, text_todo, creator) => this.createTodo(project, text_todo, creator)}/>} />
                         <Route exact path='/login/' element = {<LoginForm obtainAuthToken={(login, password) => this.obtainAuthToken(login, password)}/>} />
                         <Route exact path='/projects/' element = {<Navigate to='/' />} />
