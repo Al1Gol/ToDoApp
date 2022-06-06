@@ -64,7 +64,6 @@ class App extends React.Component {
     }
 
     isAuth() {
-        console.log('test auth')
         return !!this.state.token
     }
 
@@ -76,7 +75,7 @@ class App extends React.Component {
     }
       
     getHeadears(){
-        if (this.isAuth()){
+        if (this.isAuth){
             return {
                     'Authorization': 'Token ' + this.state.token
                 }
@@ -191,7 +190,7 @@ class App extends React.Component {
             let todoes = response.data.results
             this.setState({
                 'todoes': this.state.todoes
-            }, this.getData())
+            }, this.getData)
         })
         .catch(error => {
             this.setState({
@@ -233,7 +232,7 @@ class App extends React.Component {
                         <Route exact path='/login/' element = {<LoginForm obtainAuthToken={(login, password) => this.obtainAuthToken(login, password)}/>} />
                         <Route exact path='/projects/' element = {<Navigate to='/' />} />
                         <Route exact path='/projects/create/' element = {<CreateProjectForm users={this.state.users} createProject={(name, repo, workers) => this.createProject(name, repo, workers)}/>} />
-                        <Route exact path='/user/:id/' element = {<UserProjectsList projects={this.state.projects} />} />
+                        <Route exact path='/user/:id/' element = {<UserProjectsList projects={this.state.projects} users={this.state.users}/>} />
                         <Route path='*' element = {<NotFound />} />
                     </Routes>
                 </BrowserRouter>

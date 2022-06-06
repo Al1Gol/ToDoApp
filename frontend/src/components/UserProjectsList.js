@@ -2,19 +2,19 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 
 
-const ProjectItem = ({project}) => {
+const ProjectItem = ({project, users}) => {
     return (
         <tbody>
             <tr>
                 <td>{project.name}</td>
                 <td>{project.repo}</td>
-                <td>{project.workers}</td>
+                <td>{project.workers.map(authorId => users.find(a => a.id === authorId).username).join(', ')}</td>
             </tr>
         </tbody>
     )
 }
 
-const UserProjectsList = ({projects}) => {
+const UserProjectsList = ({projects, users}) => {
     const {id} = useParams()
     var filteredProjects = projects.filter((project) => project.workers.includes(parseInt(id)))
 
@@ -31,7 +31,7 @@ const UserProjectsList = ({projects}) => {
                     Workers
                 </th>
             </thead> 
-            {filteredProjects.map((project) => <ProjectItem project={project} />)}
+            {filteredProjects.map((project) => <ProjectItem project={project} users={users} />)}
         </table>
     )
 }

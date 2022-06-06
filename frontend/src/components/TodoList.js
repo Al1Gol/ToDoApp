@@ -1,6 +1,6 @@
 import React from 'react'
 
-const TodoItem = ({todo, user, project, deleteToDo}) => {
+const TodoItem = ({user, project, todo, deleteToDo}) => {
     return (
         <tbody>
             <tr>
@@ -13,7 +13,7 @@ const TodoItem = ({todo, user, project, deleteToDo}) => {
     )
 }
 
-const TodoList = ({todoes, users, project, filter_word, deleteToDo, handleChange}) => {
+const TodoList = ({users, project, todoes, filter_word, deleteToDo, handleChange}) => {
     return (
         <div>
             <input type="text" name="filter_word" placeholder="Filtering by project name" value={filter_word} onChange={(event) => handleChange(event)}/>
@@ -29,7 +29,7 @@ const TodoList = ({todoes, users, project, filter_word, deleteToDo, handleChange
                         Creator
                     </th>
                 </thead>
-                {todoes.map((todo) => <TodoItem todo={todo} user={users} project={project} deleteToDo={deleteToDo}/>)} 
+                {todoes.map((todo) => <TodoItem user={users} project={project} todo={todo} deleteToDo={deleteToDo}/>)} 
             </table>
         </div>
     )
