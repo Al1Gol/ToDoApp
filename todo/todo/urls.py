@@ -1,3 +1,4 @@
+from pipes import Template
 from django.contrib import admin
 from django.urls import include, path, re_path
 from rest_framework import routers
@@ -7,6 +8,7 @@ from rest_framework.authtoken import views
 from rest_framework.permissions import AllowAny
 from graphene_django.views import GraphQLView
 from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import TemplateView
 
 from projectapp.views import ProjectViewSet, TodoViewSet
 from usersapp.views import UsersViewSet
@@ -36,4 +38,5 @@ urlpatterns = [
     path('api-auth-token/', views.obtain_auth_token),
     path('swagger/', schema_view.with_ui()),
     re_path(r'^swagger(?P<format>\.json|\.yaml)', schema_view.without_ui()),
+    path('', TemplateView.as_view(template_name='index.html'))
 ]
