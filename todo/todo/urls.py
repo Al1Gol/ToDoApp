@@ -25,7 +25,7 @@ schema_view = get_schema_view(
     permission_classes=(AllowAny, )
 )
 
-router = routers.SimpleRouter()
+router = routers.DefaultRouter()
 router.register('users', UsersViewSet, basename='users')
 router.register('projects', ProjectViewSet, basename = 'projects')
 router.register('todo', TodoViewSet, basename = 'todo')
