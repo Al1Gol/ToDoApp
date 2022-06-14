@@ -8,7 +8,7 @@ const ProjectItem = ({project, users, deleteProject}) => {
                 <td>{project.name}</td>
                 <td>{project.repo}</td>
                 <td>{project.workers.map(authorId => users.find(a => a.id === authorId).username).join(', ')}</td>
-                <td><button onClick={() => deleteProject(project.id)}>Delete</button></td>
+                <td className='td-btn'><button onClick={() => deleteProject(project.id)}>Delete</button></td>
             </tr>
         </tbody>
     )
