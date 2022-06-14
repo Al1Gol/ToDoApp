@@ -4,9 +4,9 @@ class CreateProjectForm extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-                'name': '',
-                'repo': '',
-                'workers':[]
+                "name": "",
+                "repo": "",
+                "workers":[]
         }
     }
 
@@ -40,8 +40,8 @@ class CreateProjectForm extends React.Component {
     render(){
         return (
             <form className="create-form" onSubmit={(event) => this.handleSubmit(event)}>
-                <input className='creation-input' type="text" name="name" placeholder="project name" value={this.state.name} onChange={(event) => this.handleChange(event)}/>
-                <input className='creation-input' type="text" name="repo" placeholder="repository" value={this.state.repo} onChange={(event) => this.handleChange(event)}/>
+                <input className="creation-input" type="text" name="name" placeholder="project name" value={this.state.name} onChange={(event) => this.handleChange(event)}/>
+                <input className="creation-input" type="text" name="repo" placeholder="repository" value={this.state.repo} onChange={(event) => this.handleChange(event)}/>
                 <select multiple required size="10" className='creation-select' onChange={(event) => this.handleWorkersChange(event)}> 
                     {this.props.users.map((user) => <option value={user.id}>{user.username}</option>)}
                 </select>

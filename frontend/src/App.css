@@ -165,7 +165,7 @@ td>button:hover{
 }
 
 /*create todo/project*/
-.create-form{
+.create-form, .login-form{
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -221,4 +221,10 @@ footer {
   align-items: flex-start;
   justify-content: center;
 }
+
+.login-form{
+  padding-left: 30%;
+  padding-right: 30%;
+}
 /* end footer */
+
