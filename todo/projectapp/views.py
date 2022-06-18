@@ -9,7 +9,6 @@ class ProjectLimitOffsetPagination(LimitOffsetPagination):
     default_limit = 10
 
 class ProjectViewSet(ModelViewSet):
-    pagination_class = ProjectLimitOffsetPagination
     serializer_class = ProjectSerializer
 
     def get_queryset(self):
@@ -24,7 +23,6 @@ class ToDoLimitOffsetPagination(LimitOffsetPagination):
 
 
 class TodoViewSet(ModelViewSet):
-    pagination_class = ToDoLimitOffsetPagination
     serializer_class = ToDoSerializer
 
     def perform_destroy(self, instance):

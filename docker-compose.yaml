@@ -1,0 +1,44 @@
+version: '3.1'
+
+services: 
+  db:
+    image: postgres
+    privileged: true
+    restart: always
+    ports: 
+      - 54327:5432
+    environment: 
+      POSTGRES_USER: 'al'
+      POSTGRES_PASSWORD: 'qwerty'
+      POSTGRES_DB: 'todo'
+
+  backend:
+    build: ./todo
+    privileged: true
+    restart: always
+    expose: 
+      - 8080
+    depends_on: 
+      - db
+    command: bash -c "python manage.py migrate && python manage.py loaddata users.json && gunicorn todo.wsgi -b 0.0.0.0:8080"
+
+    environment:
+      DJANGO_SETTINGS_MODULE: todo.settings.production
+
+  nginx:
+    build: ./nginx
+    privileged: true
+    restart: always
+    ports:
+      - 8000:80
+    depends_on: 
+      - backend
+
+  frontend:
+    build: ./frontend
+    privileged: true
+    restart: always
+    ports:
+      - 80:80
+    depends_on: 
+      - nginx

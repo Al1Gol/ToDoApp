@@ -43,7 +43,7 @@ class CreateTodoForm extends React.Component {
         let project = []
 
         for (let i = 0; i < event.target.selectedOptions.length; i++){
-            project.push(parseInt(event.target.selectedOptions.item(i)))
+            project.push(parseInt(event.target.selectedOptions.item(i).value))
         }
 
         this.setState({
