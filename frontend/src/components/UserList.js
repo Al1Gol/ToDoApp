@@ -6,7 +6,7 @@ const UserItem = ({user}) => {
     return (
         <tbody>
             <tr>
-                <li><Link to={`/user/${user.id}/`}>{user.username}</Link></li>
+                <td><Link to={`/user/${user.id}/`}>{user.username}</Link></td>
                 <td>{user.first_name}</td>
                 <td>{user.last_name}</td>
                 <td>{user.email}</td>
@@ -23,10 +23,10 @@ const UserList = ({users}) => {
                     Username
                 </th>
                 <th>
-                    First_name
+                    Firstname
                 </th>
                 <th>
-                    Last_name
+                    Lastname
                 </th>
                 <th>
                     Email

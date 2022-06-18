@@ -53,17 +53,17 @@ class CreateTodoForm extends React.Component {
 
     render(){
         return (
-            <form onSubmit={(event) => this.handleSubmit(event)}>
-                <select required onChange={(event) => this.handleProjectChange(event)}> 
+            <form className="create-form" onSubmit={(event) => this.handleSubmit(event)}>
+                <select required className="creation-select" onChange={(event) => this.handleProjectChange(event)}> 
                     <option disabled selected value=''>--Select project--</option>
                     {this.props.projects.map((project) => <option value={project.id}>{project.name}</option>)}
                 </select>
-                <input required type="text" name="text_todo" placeholder="text todo" value={this.state.text_todo} onChange={(event) => this.handleChange(event)}/>
-                <select required onChange={(event) => this.handleCreatorChange(event)}>
-                    <option disabled selected value=''>--Select creator--</option>
+                <textarea required className="creation-textarea todo-text" type="text" name="text_todo" placeholder="text todo" value={this.state.text_todo} onChange={(event) => this.handleChange(event)}/>
+                <select required className="creation-select" onChange={(event) => this.handleCreatorChange(event)}>
+                    <option disabled selected value="">--Select creator--</option>
                     {this.props.users.map((user) => <option value={user.id}>{user.username}</option>)}
                 </select>
-                <input type="submit" value="Create"/>
+                <input className="btn-submit" type="submit" value="Create"/>
             </form>
         )
     }

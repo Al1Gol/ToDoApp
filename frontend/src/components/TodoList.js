@@ -7,7 +7,7 @@ const TodoItem = ({user, project, todo, deleteToDo}) => {
                 <td className={todo.is_active ? "not_complete" : "complete" }>{project.find(obj => obj.id === todo.project).name}</td>
                 <td className={todo.is_active ? "not_complete" : "complete" }>{todo.text_todo}</td>
                 <td className={todo.is_active ? "not_complete" : "complete" }>{user.find(obj => obj.id === todo.creator).username}</td>
-                <td className={todo.is_active ? "not_complete" : "complete" }><button onClick={() => deleteToDo(todo.id)}>Complete</button></td>
+                <td className="td-btn"><button onClick={() => deleteToDo(todo.id)}>Complete</button></td>
             </tr>
         </tbody>
     )
@@ -16,7 +16,7 @@ const TodoItem = ({user, project, todo, deleteToDo}) => {
 const TodoList = ({users, project, todoes, filter_word, deleteToDo, handleChange}) => {
     return (
         <div>
-            <input type="text" name="filter_word" placeholder="Filtering by project name" value={filter_word} onChange={(event) => handleChange(event)}/>
+            <input className='filtering' type="text" name="filter_word" placeholder="Filtering by project" value={filter_word} onChange={(event) => handleChange(event)}/>
             <table>
                 <thead>
                     <th>

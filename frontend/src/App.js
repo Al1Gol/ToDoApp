@@ -221,20 +221,22 @@ class App extends React.Component {
     
     render(){
         return (
-            <div>
+            <div className='container'>
                 <BrowserRouter>
                     <Menu isAuth={this.isAuth()} logOut={() => this.logOut()} />
-                    <Routes>
-                        <Route exact path='/' element = {<ProjectList projects={this.state.projects} users={this.state.users} deleteProject={(id) => this.deleteProject(id)}/>} />
-                        <Route exact path='/users/' element = {<UserList users={this.state.users} />} />
-                        <Route exact path='/todo/' element = {<TodoList users={this.state.users} project={this.state.projects} todoes={this.state.todoes} filter_word={this.state.filter_word} deleteToDo={(id) => this.deleteToDo(id)} handleChange={(event) => this.handleChange(event)}/>} />
-                        <Route exact path='/todo/create/' element = {<CreateTodoForm users={this.state.users} projects={this.state.projects} createTodo={(project, text_todo, creator) => this.createTodo(project, text_todo, creator)}/>} />
-                        <Route exact path='/login/' element = {<LoginForm obtainAuthToken={(login, password) => this.obtainAuthToken(login, password)}/>} />
-                        <Route exact path='/projects/' element = {<Navigate to='/' />} />
-                        <Route exact path='/projects/create/' element = {<CreateProjectForm users={this.state.users} createProject={(name, repo, workers) => this.createProject(name, repo, workers)}/>} />
-                        <Route exact path='/user/:id/' element = {<UserProjectsList projects={this.state.projects} users={this.state.users}/>} />
-                        <Route path='*' element = {<NotFound />} />
-                    </Routes>
+                    <div className='content'>
+                        <Routes>
+                            <Route exact path='/' element = {<ProjectList projects={this.state.projects} users={this.state.users} deleteProject={(id) => this.deleteProject(id)}/>} />
+                            <Route exact path='/users/' element = {<UserList users={this.state.users} />} />
+                            <Route exact path='/todo/' element = {<TodoList users={this.state.users} project={this.state.projects} todoes={this.state.todoes} filter_word={this.state.filter_word} deleteToDo={(id) => this.deleteToDo(id)} handleChange={(event) => this.handleChange(event)}/>} />
+                            <Route exact path='/todo/create/' element = {<CreateTodoForm users={this.state.users} projects={this.state.projects} createTodo={(project, text_todo, creator) => this.createTodo(project, text_todo, creator)}/>} />
+                            <Route exact path='/login/' element = {<LoginForm obtainAuthToken={(login, password) => this.obtainAuthToken(login, password)}/>} />
+                            <Route exact path='/projects/' element = {<Navigate to='/' />} />
+                            <Route exact path='/projects/create/' element = {<CreateProjectForm users={this.state.users} createProject={(name, repo, workers) => this.createProject(name, repo, workers)}/>} />
+                            <Route exact path='/user/:id/' element = {<UserProjectsList projects={this.state.projects} users={this.state.users}/>} />
+                            <Route path='*' element = {<NotFound />} />
+                        </Routes>
+                    </div>
                 </BrowserRouter>
                 <Footer/>
             </div>
